@@ -1,0 +1,282 @@
+
+{% load static %}
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Mansalva|Merienda|Pacifico|Satisfy|Grenze|Vibes|Open+Sans&display=swap"
+    rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    .well {
+      margin-top: 30px;
+      background: transparent;
+      border: none;
+    }
+
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 5px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    ul li {
+      padding-left: 20px;
+      padding-top: 2px;
+      padding-bottom: 8px;
+      padding-right: 20px;
+
+    }
+
+    #p1 {
+      color: #6b249b;
+      font-size: 15px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .badge {
+      background-color: #6b249b;
+    }
+
+    #p2 {
+      color: #6b249b;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 407px;
+    }
+    #card-element {
+      border: 2px solid #6b249b;
+      padding: 15px;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 20px;
+      background-color: #6b249b;
+      color: gray;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="font-family: 'Open Sans', sans-serif;">
+    <a href="{% url 'home' %}"><img id="img1" src="{% static 'tryapp/img/logo.jpeg' %}" alt="cebs"></a>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'profile' %}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'cart_detail' %}">Cart</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'orderh' %}" id="p1">Order History</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}" id="p1">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p2">
+            Hello!&nbsp;{{user.username}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {% block content %}
+  <div class="container">
+    <div class="row" style="margin-top: 0%">
+
+      <span class="badge pull-right" style="margin-left:900px;">
+        {% with totail_items=cart|length %}
+        {% if cart|length > 0 %}
+        <p id="p9" style="color: #ffffff">My Shopping Order:
+          <a href="{% url 'cart_detail' %}" style="color: #ffffff">
+            {{ totail_items }} item {{ totail_items|pluralize }}, Rs. {{ cart.get_total_price }}
+          </a>
+        </p>
+        {% else %}
+        <p id="p9">Your cart is empty.</p>
+        {% endif %}
+        {% endwith %}
+      </span><br><br>
+
+      <table style="margin-top:1%;" class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Unit Price</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart %}
+          {% with product=item.product %}
+          <tr>
+            <td>
+              <img src="{{product.image}}" style="width: 100px;height: 100px;">
+            </td>
+            <td>{{ product.productname }}</td>
+            <td>
+              <form action="{% url 'cart_add' id=product.id %}" method="post">
+                {% csrf_token %}
+                {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.update }}
+                <input type="submit" value="Update" class="btn btn-md" style="background-color: #6b249b;color:white;">
+              </form>
+            </td>
+            <td>
+              <button class="btn btn-md" style="background-color: #6b249b;color:white;"><a
+                  href="{% url 'cart_remove' id=product.id %}" style="text-decoration: none;color:white;"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                  </svg></a>
+              </button>
+            </td>
+            <td>Rs. {{ item.price }}</td>
+            <td>Rs. {{ item.total_price }}</td>
+          </tr>
+          {% endwith %}
+          {% endfor %}
+          <tr>
+            <td colspan="5" style="border: none;"></td>
+            <td colspan="num" style="border: none;"><b>Total Rs. {{ cart.get_total_price }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-right">
+        <a href="{% url 'home' %}" class="btn btn-default" style="background-color: #6b249b;color:white;">Continue
+          Shopping</a>
+        <a href="#" data-toggle="modal" style="background-color: #6b249b;color:white;" data-target="#exampleModal"
+          class="btn btn-md">Check out</a>
+      </p>
+
+    </div>
+  </div>
+
+  </div>
+  </div>
+
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Check Out Form</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="m-2 p-3">
+            <form action="{% url 'checkout' %} " method="POST" id="payment-form">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="">Address</label>
+                <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+              <div class="form-group">
+                <label for="">Phone</label>
+                <input type="text" name="phone" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+              <div id="card-element">
+                <!-- A Stripe Element will be inserted here 
+                        4000003560000008
+                        -->
+              </div>
+        
+              {% if messages %}
+              <div class="notification is-danger">{{ message }}</div>
+        
+              {% endif %}<br>
+              <input onclick="myFunction()" type="submit" class="btn btn-outline-info col-lg-6" style="background-color: #6b249b;color:white;"
+                value="Place Order">
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+</body>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  function myFunction() {
+    alert("Payment Successfull");
+  }
+  var stripe = Stripe('pk_test_51IrKiWSD2MVKC9ogYQR4jUcnobRdFLSGX6Lt7zVUcInmAYdrqtHuxIYD3KpGZ7PMGPG5SJL6jz67Nieyv1ISBrYw00uAxTPSYZ');
+
+  var elements = stripe.elements();
+
+  var card = elements.create('card');
+
+  card.mount('#card-element');
+
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function (result) {
+      if (result.error) {
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+      } else {
+        stripeTokenHandler(result.token);
+      }
+    });
+  });
+
+  function stripeTokenHandler(token) {
+    var form = document.getElementById('payment-form');
+    var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', 'stripe_token');
+    hiddenInput.setAttribute('value', token.id);
+    form.appendChild(hiddenInput);
+
+    form.submit();
+  }
+</script>
+
+</html>

@@ -1,0 +1,195 @@
+{% load static %}
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <meta charset="utf-8">
+
+  <style>
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 5px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    ul li {
+      padding-left: 20px;
+      padding-top: 2px;
+      padding-bottom: 8px;
+      padding-right: 20px;
+
+    }
+
+    #p1 {
+      color: #6b249b;
+      font-size: 15px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    #p2 {
+      color: #6b249b;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 398px;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 25px;
+      background-color: #6b249b;
+      color: gray;
+      text-align: center;
+    }
+
+    .form-area p {
+      margin: 0;
+      padding: 0;
+      font-weight: bold;
+      color: #6b249b;
+    }
+
+
+    .form-area input[type=text],
+    .form-area input[type=number],
+    .form-area input[type=username],
+    .form-area input[type=email],
+    .form-area input[type=password] {
+      border: none;
+      border-bottom: 1px solid #6b249b;
+      background-color: white;
+      outline: none;
+      height: 40px;
+      color: #6b249b;
+    }
+  </style>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="font-family: 'Open Sans', sans-serif;">
+    <a href="{% url 'home' %}"><img id="img1" src="{% static 'tryapp/img/logo.jpeg' %}" alt="cebs"></a>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'profile' %}">Profile</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cart_detail' %}" id="p1">Cart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'orderh' %}" id="p1">Order History</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}" id="p1">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p2">
+            Hello!&nbsp;{{user.username}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+
+
+
+
+  <div class="row mx-0">
+    <div class="col-sm-12 p-3">
+      <div class="card p-3">
+        <div>
+          <div class="d-flex justify-content-center">
+            <img src="{% static 'tryapp/img/person.png' %}" class="rouded-circle img-thumbnail" width="120" height="170"
+              alt="Profile Picture" style="border-radius:100px;margin-left: 1px;">
+
+          </div>
+          <form method="POST" class="form-area">
+            {% csrf_token %}
+
+            <p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z" />
+              </svg>&nbsp;&nbsp;&nbsp;
+
+              {{account_form.email}}
+            </p>
+            <hr>
+
+            <p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-person-circle" viewBox="0 0 15 15">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+              </svg>&nbsp;&nbsp;&nbsp;
+              {{account_form.username}}
+            </p>
+            <hr>
+            <p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone"
+                viewBox="0 0 16 16">
+                <path
+                  d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z" />
+                <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+              </svg>&nbsp;&nbsp;&nbsp;
+              {{account_form.phone_no}}
+            </p>
+
+            {% for field in account_form %}
+            {% for error in field.errors %}
+            <p style="color:red;">{{error}}</p>
+            {% endfor %}
+            {% endfor %}
+            {% for message in messages %}
+            <p id="messages" style="color:green;">{{message}}</p>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-md" style="background-color: #6b249b; color: white;">Edit &
+              Save</button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="footer">© 2021 </span><span style="color: white; "> CEBSShopping.com</span></div>
+
+
+</body>
+
+</html>

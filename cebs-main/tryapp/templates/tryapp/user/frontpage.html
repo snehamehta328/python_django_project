@@ -1,0 +1,83 @@
+{% load static %}
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+  <style>
+    .container {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+
+    #p1 {
+      color: #6b249b;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .top-left {
+      position: absolute;
+      top: 200px;
+      left: -70px;
+      color: #6b249b;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .top-right {
+      position: absolute;
+      top: 60px;
+      right: -170px;
+      height: 200px;
+    }
+
+    a {
+      color: #6b249b;
+    }
+
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 3px;
+      margin-top: -5px;
+      margin-left: -10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <img src="{% static 'tryapp/img/logo.jpeg' %}" id="img1">
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'signup' %}" id="p1"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="{% url 'login' %}" id="p1"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="container">
+    <div class="top-left">
+      <h1 style="font-size:65px;">Welcome to
+        <img src="{% static 'tryapp/img/logo.jpeg' %}" style="height:80px; width: 100px; margin-top: -14px;">
+        Shopping!
+      </h1>
+    </div>
+    <div class="top-right">
+      <img src="{% static 'tryapp/img/front.jpg' %}">
+    </div>
+
+</body>
+
+</html>

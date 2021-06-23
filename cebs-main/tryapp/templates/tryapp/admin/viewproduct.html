@@ -1,0 +1,208 @@
+{% load static %}
+<html>
+
+<head>
+  <title>Products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .bor {
+      height: 390px;
+      width: 170px;
+    }
+
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 5px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    ul li {
+      padding-left: 20px;
+
+      padding-bottom: 8px;
+      padding-right: 20px;
+
+    }
+
+    #p1 {
+      color: #6b249b;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 20px;
+    }
+
+    #p2 {
+      color: #6b249b;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 407px;
+    }
+
+    ptr {
+      cursor: pointer;
+    }
+
+    #p3 {
+      color: white;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: medium;
+      margin-left: -30px;
+      padding-right: 20px;
+    }
+
+    #i1 {
+      width: 100px;
+      height: 100px;
+    }
+
+    .stylingg {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    .navbar {
+      margin-top: 0px;
+    }
+
+    .styling {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      height: 200px;
+      width: 160px;
+    }
+
+    .navbar.second-navbar {
+      margin-top: -10px;
+      background-color: #6b249b;
+      width: 100%;
+      height: 45px;
+    }
+
+    ptr {
+      cursor: pointer;
+    }
+
+    .nav-link {
+      color: white;
+      font-family: 'Open Sans'sans-serif;
+      font-weight: 100;
+    }
+
+    .nav-link:hover {
+      color: gray;
+    }
+
+    .cebs {
+      margin-top: -5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light" style="font-family: 'Open Sans', sans-serif;">
+    <a href="{% url 'home' %}"><img id="img1" src="{% static 'tryapp/img/logo.jpeg' %}" alt="cebs"></a>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'viewuser' %}" id="p1">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'viewproduct' %}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'addproduct' %}">Add Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'order' %}" id="p1">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p2">
+            Hello!&nbsp;{{user.username}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <nav class="navbar second-navbar navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link ptr" href="{% url 'viewproduct' %}"><b>All</b></a>
+      </li>&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a class="nav-link ptr" href="{% url 'vcloth' %}"><b>Clothes</b></a>
+      </li>&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a class="nav-link ptr" href="{% url 'velec' %}"><b>Electronics</b></a>
+      </li>&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a class="nav-link ptr" href="{% url 'vbook' %}"><b>Books</b></a>
+      </li>&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a class="nav-link  ptr" href="{% url 'vshoes' %}"><b>Shoes</b></a>
+      </li>
+
+    </ul>
+  </nav>
+  <div class="cebs" style="width:100%">
+    <table class="table table-bordered">
+      <tr>
+        <td>S.No.</td>
+        <td>Category</td>
+        <td>Name</td>
+        <td style="width:160px;">Description</td>
+        <td>Price</td>
+        <td>Image</td>
+        <td>Edit</td>
+        <td>Delete</td>
+      </tr>
+      {% for product in productss %}
+
+      <tr>
+        <td>{{product.id}}</td>
+        <td>{{product.category}}</td>
+        <td>{{product.productname}}</td>
+        <td style="width:160px;">{{product.description}}</td>
+        <td>{{product.price}}</td>
+        <td><img src="{{product.image}}" id="i1"></td>
+        <td><a href="{% url 'update' id=product.id %}" style="color: black;"><svg xmlns="http://www.w3.org/2000/svg"
+              width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+              <path fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+          </a></svg></td>
+        <td><a href="{% url 'delete' id=product.id %}" style="color: black;"><svg xmlns="http://www.w3.org/2000/svg"
+              width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+              <path
+                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+          </a></svg></td>
+
+      </tr>
+      {% endfor %}
+    </table>
+
+  </div>
+
+
+</body>
+
+</html>

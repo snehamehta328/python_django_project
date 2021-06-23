@@ -1,0 +1,202 @@
+{% load static %}
+<html>
+
+<head>
+  <title>Products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .bor {
+      height: 390px;
+      width: 170px;
+    }
+
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 5px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    ul li {
+      padding-left: 20px;
+
+      padding-bottom: 8px;
+      padding-right: 20px;
+
+    }
+
+    #p1 {
+      color: #6b249b;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 20px;
+    }
+
+    #p2 {
+      color: #6b249b;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 407px;
+    }
+
+    ptr {
+      cursor: pointer;
+    }
+
+    #p3 {
+      color: white;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: medium;
+      margin-left: -30px;
+      padding-right: 20px;
+    }
+
+    #i1 {
+      width: 100px;
+      height: 100px;
+    }
+
+    .stylingg {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    .form-group {
+      width: 120px;
+    }
+
+    .btn {
+      margin-top: -39px;
+      margin-left: 120px;
+      background-color: #6b249b;
+      color: white;
+    }
+
+    .navbar {
+      margin-top: 0px;
+    }
+
+    .styling {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      height: 200px;
+      width: 160px;
+    }
+
+    .navbar.second-navbar {
+      margin-top: -10px;
+      background-color: #6b249b;
+      width: 100%;
+      height: 45px;
+    }
+
+    ptr {
+      cursor: pointer;
+    }
+
+    .nav-link {
+      color: white;
+      font-family: 'Open Sans'sans-serif;
+      font-weight: 100;
+    }
+
+    .nav-link:hover {
+      color: gray;
+    }
+
+    .cebs {
+      margin-top: -5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light" style="font-family: 'Open Sans', sans-serif;">
+    <a href="{% url 'home' %}"><img id="img1" src="{% static 'tryapp/img/logo.jpeg' %}" alt="cebs"></a>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'viewuser' %}" id="p1">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'viewproduct' %}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'addproduct' %}">Add Product</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'order' %}" id="p1">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p2">
+            Hello!&nbsp;{{user.username}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+  <form action="{% url 'viewuser' %}" method="POST" class="sty">
+    {% csrf_token %}
+    <div class="form-group">
+      <select class="form-control" id="filter" name="filter">
+        <option value="allUsers">All Users</option>
+        {% for user in users %}
+        <option value="{{user.id}}"> {{ user.username| capfirst }} </option>
+        {% endfor %}
+      </select>
+
+      <input type="submit" value="Filter" class="form-control btn">
+    </div>
+  </form>
+
+
+
+  <div class="cebs">
+    <table class="table table-bordered">
+      <tr>
+        <td>Username</td>
+        <td>Email</td>
+        <td>Phone No.</td>
+
+      </tr>
+      {% for user in userList %}
+
+      <tr>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone_no}}</td>
+
+
+      </tr>
+      {% endfor %}
+    </table>
+
+  </div>
+
+
+
+</body>
+
+</html>

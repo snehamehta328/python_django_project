@@ -1,0 +1,211 @@
+{% load static %}
+<html>
+
+<head>
+  <title>Products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Mansalva|Merienda|Pacifico|Satisfy|Grenze|Vibes|Open+Sans&display=swap"
+    rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    .bor {
+      height: 390px;
+      width: 170px;
+    }
+
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 5px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    ul li {
+      padding-left: 20px;
+
+      padding-bottom: 8px;
+      padding-right: 20px;
+
+    }
+
+    #p1 {
+      color: #6b249b;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 20px;
+    }
+
+    #p2 {
+      color: #6b249b;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 407px;
+    }
+
+    ptr {
+      cursor: pointer;
+    }
+
+    #p3 {
+      color: white;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: medium;
+      margin-left: -30px;
+      padding-right: 20px;
+    }
+
+    #i1 {
+      width: 100px;
+      height: 100px;
+    }
+
+    .stylingg {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    .navbar {
+      margin-top: 0px;
+    }
+
+    .styling {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      height: 200px;
+      width: 160px;
+    }
+
+    .form-group {
+      width: 120px;
+    }
+
+    #btn1 {
+      margin-top: -54px;
+      margin-left: 120px;
+      background-color: #6b249b;
+      color: white;
+    }
+
+    ptr {
+      cursor: pointer;
+    }
+
+    .nav-link {
+      color: white;
+      font-family: 'Open Sans'sans-serif;
+      font-weight: 100;
+    }
+
+    .nav-link:hover {
+      color: gray;
+    }
+
+    .cebs {
+      margin-top: -30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light" style="font-family: 'Open Sans', sans-serif;">
+    <a href="{% url 'home' %}"><img id="img1" src="{% static 'tryapp/img/logo.jpeg' %}" alt="cebs"></a>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'viewuser' %}" id="p1">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'viewproduct' %}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'addproduct' %}">Add Product</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'order' %}" id="p1">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p2">
+            Hello!&nbsp;{{user.username}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <form action="{% url 'order' %}" method="POST" class="">
+    {% csrf_token %}
+    <div class="form-group">
+      <select class="form-control" id="filter" name="filter">
+        <option value="allUsers">All Users</option>
+        {% for user in users %}
+        <option value="{{user.username}}"> {{ user.username| capfirst }} </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Filter" class="form-control btn" id="btn1">
+    </div>
+  </form>
+
+  <div class="cebs" style="width:100%">
+    <table class="table table-bordered">
+      <table class="table table-bordered ">
+        <thead>
+          <tr>
+
+            <th>Name</th>
+            <th>User</th>
+            <th>Price</th>
+            <th>Quantity </th>
+            <th>Total</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orderss %}
+          <tr>
+
+            <td>{{order.productname}}</td>
+            <td>{{order.username}}</td>
+            <td>{{order.price}}</td>
+            <td>{{order.quantity}}</td>
+            <td>{{order.total}}</td>
+            <td>
+              <form action="{% url 'orderstatus' id=order.id %}" method="POST">
+                {% csrf_token %} {% if order.status %}
+                <button type="submit" class="badge badge-success" disabled>Completed</button> {% else %}
+                <button type="submit" class="badge badge-warning">Pending</button> {% endif %}
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+  </div>
+
+
+</body>
+
+</html>

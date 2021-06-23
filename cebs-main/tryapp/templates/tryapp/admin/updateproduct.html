@@ -1,0 +1,162 @@
+{% load static%}
+<html>
+
+<head>
+  <title>Products</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 5px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    ul li {
+      padding-left: 20px;
+      padding-top: 2px;
+      padding-bottom: 8px;
+      padding-right: 20px;
+
+    }
+
+
+
+    .imagee {
+      height: 100%;
+      width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+
+    .form-area {
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      background-color: white;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 660px;
+      box-sizing: border-box;
+      background-color: #f5f5f0;
+      /* background: rgba(0, 0, 0, 0.5); */
+      padding: 40px;
+    }
+
+    h2 {
+      margin: 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-weight: bold;
+      color: #6b249b;
+    }
+
+    .form-area p {
+      margin-bottom: 7px;
+      font-weight: bold;
+      color: #6b249b;
+    }
+
+    .form-area input,
+    select {
+      margin-bottom: 10px;
+      width: 100%;
+
+    }
+
+    .form-area input[type=text],
+    .form-area input[type=number],
+    .form-area input[type=username],
+    .form-area input[type=email],
+    .form-area input[type=password] {
+      border: none;
+      border-bottom: 1px solid #6b249b;
+      background-color: white;
+      outline: none;
+      height: 40px;
+      color: #6b249b;
+    }
+
+    textarea {
+      border: none;
+      border-bottom: 1px solid #6b249b;
+      background-color: white;
+      outline: none;
+      height: 80px;
+      color: #6b249b;
+      width: 100%;
+    }
+
+    ::placeholder {
+      color: #6b249b;
+    }
+
+    .form-area select {
+      margin-top: 20px;
+      padding: 10px 0;
+    }
+
+    .form-area input[type=submit] {
+      border: none;
+      height: 60px;
+      outline: none;
+      color: white;
+      font-size: 15px;
+      background-color: tomato;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+
+    .form-area input[type=submit]:hover {
+      background-color: #6b249b;
+      color: white;
+    }
+
+    #p1 {
+      margin-bottom: -5px;
+      font-weight: bold;
+      color: #6b249b;
+    }
+
+    .form-area a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="{% static 'tryapp/img/bgimg.jpg' %}" class="imagee">
+  <div class="form-area" style="font-family: 'Open Sans', sans-serif;">
+    <h2>Edit Product</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <p id="p1">Category</p>
+      {{form.category}}
+      <p>Name</p>
+      {{form.productname}}
+      <p>Price</p>
+      {{form.price}}
+      <p>Description</p>
+      {{form.description}}
+      <br><br>
+      <p>Image</p>
+      {{form.image}}
+      <button type="submit" class="btn btn-lg btn-block login-button"
+        style="background-color: #6b249b;color:white; margin-top:20px;">Update</button>
+    </form>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+{% load static %}
+<html>
+
+<head>
+
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+    .bor {
+      height: 390px;
+      width: 170px;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 20px;
+      background-color: #6b249b;
+      color: gray;
+      text-align: center;
+    }
+
+    #img1 {
+      width: 100px;
+      height: 80px;
+      padding: 5px;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+
+    ul li {
+      padding-left: 20px;
+      padding-top: 2px;
+      padding-bottom: 8px;
+      padding-right: 20px;
+
+    }
+
+    #p1 {
+      color: #6b249b;
+      font-size: 15px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    #p2 {
+      color: #6b249b;
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Times New Roman', Times, serif;
+      margin-left: 398px;
+    }
+
+    .stylingg {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+
+    .styling {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      height: 200px;
+      width: 160px;
+    }
+
+    ptr {
+      cursor: pointer;
+    }
+
+    #oh {
+      width: 125px;
+    }
+  </style>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="font-family: 'Open Sans', sans-serif;">
+    <a href="{% url 'home' %}"><img id="img1" src="{% static 'tryapp/img/logo.jpeg' %}" alt="cebs"></a>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'profile' %}">Profile</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cart_detail' %}" id="p1">Cart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'orderh' %}" id="p1">Order History</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}" id="p1">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="p2">
+            Hello!&nbsp;{{user.username}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="p1" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="card-deck">
+    <div class="card">
+      <img src="{% static 'tryapp/img/tele.png' %}" style="margin-left:80px; width:160px;height:160px;"
+        class="card-img-top" alt="tele">
+      <br><br>
+      <div class="card-body">
+        <h5 class="card-title" style="font-size: medium;"><b>Contact</b></h5>
+        <p class="card-text" style="font-size: medium;">+91 94630 48000</p>
+        <p class="card-text" style="font-size: medium;">+91 94638 80650</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="{% static 'tryapp/img/mail.png' %}" style="margin-left:100px; width:160px;height:160px;"
+        class="card-img-top" alt="email">
+      <br><br>
+      <div class="card-body">
+        <h5 class="card-title" style="font-size: medium;"><b>Email</b></h5>
+        <p style="font-size: medium;">sneha@cebs.com</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="{% static 'tryapp/img/loc.png' %}"
+        style="margin-left:100px; margin-top: 10px; width:160px;height:160px;" class="card-img-top" alt="email">
+      <br><br>
+      <div class="card-body">
+        <h5 class="card-title" style="font-size: medium;"><b>Address</b></h5>
+        <p style="font-size: medium;">Block No. 98, Industrial Area Chandigarh.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">© 2021 </span><span style="color: white; "> CEBSShopping.com</span></div>
+
+</body>
+
+</html>
